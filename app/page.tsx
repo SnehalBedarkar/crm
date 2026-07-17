@@ -14,11 +14,36 @@ export default function Dashboard() {
   ];
 
   const recentLeads = [
-    { name: "Rohan Patil", form: "3BHK Enquiry - Nashik Rd", status: "New", date: "17 Jul" },
-    { name: "Sneha Kulkarni", form: "Site Visit Request", status: "Contacted", date: "17 Jul" },
-    { name: "Amit Deshmukh", form: "3BHK Enquiry - Nashik Rd", status: "New", date: "16 Jul" },
-    { name: "Priya Joshi", form: "Callback Request", status: "Converted", date: "16 Jul" },
-    { name: "Vikram Shah", form: "Site Visit Request", status: "Lost", date: "15 Jul" },
+    {
+      name: "Rohan Patil",
+      form: "3BHK Enquiry - Nashik Rd",
+      status: "New",
+      date: "17 Jul",
+    },
+    {
+      name: "Sneha Kulkarni",
+      form: "Site Visit Request",
+      status: "Contacted",
+      date: "17 Jul",
+    },
+    {
+      name: "Amit Deshmukh",
+      form: "3BHK Enquiry - Nashik Rd",
+      status: "New",
+      date: "16 Jul",
+    },
+    {
+      name: "Priya Joshi",
+      form: "Callback Request",
+      status: "Converted",
+      date: "16 Jul",
+    },
+    {
+      name: "Vikram Shah",
+      form: "Site Visit Request",
+      status: "Lost",
+      date: "15 Jul",
+    },
   ];
 
   const statusColor: Record<string, string> = {
@@ -37,9 +62,13 @@ export default function Dashboard() {
 
   const navItems = ["Dashboard", "Leads", "Facebook Forms", "Settings"];
 
+  const sidebarClasses =
+    "fixed md:static top-0 left-0 h-full w-64 md:w-56 bg-white border-r flex flex-col z-30 transform transition-transform duration-200 " +
+    (sidebarOpen ? "translate-x-0" : "-translate-x-full") +
+    " md:translate-x-0";
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 md:flex">
-      {/* Mobile overlay — click to close the drawer */}
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
@@ -47,30 +76,34 @@ export default function Dashboard() {
         />
       )}
 
-      {/* Sidebar: fixed drawer on mobile, static column on desktop */}
-      <aside
-        className={`fixed md:static top-0 left-0 h-full w-64 md:w-56 bg-white border-r
-          flex flex-col z-30 transform transition-transform duration-200
-          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
-      >
+      <aside className={sidebarClasses}>
         <div className="px-5 py-4 text-lg font-bold border-b flex items-center justify-between">
-          Northline CRM
+          <span>Northline CRM</span>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="md:hidden text-gray-400 text-xl leading-none"
+            className="md:hidden text-gray-400"
             aria-label="Close menu"
           >
-            ×
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M6 6l12 12M18 6L6 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
           </button>
         </div>
         <nav className="flex-1 px-3 py-4 space-y-1 text-sm">
           {navItems.map((item, i) => (
-            
+            <a
               key={item}
               href="#"
-              className={`block px-3 py-2 rounded ${
-                i === 0 ? "bg-gray-100 font-medium" : "hover:bg-gray-100"
-              }`}
+              className={
+                i === 0
+                  ? "block px-3 py-2 rounded bg-gray-100 font-medium"
+                  : "block px-3 py-2 rounded hover:bg-gray-100"
+              }
             >
               {item}
             </a>
@@ -78,9 +111,7 @@ export default function Dashboard() {
         </nav>
       </aside>
 
-      {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Topbar */}
         <header className="flex items-center justify-between px-4 md:px-6 py-4 bg-white border-b sticky top-0 z-10">
           <div className="flex items-center gap-3">
             <button
@@ -89,7 +120,12 @@ export default function Dashboard() {
               aria-label="Open menu"
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path
+                  d="M3 6h18M3 12h18M3 18h18"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               </svg>
             </button>
             <h1 className="text-lg font-semibold">Dashboard</h1>
@@ -101,7 +137,6 @@ export default function Dashboard() {
         </header>
 
         <main className="p-4 md:p-6 space-y-6">
-          {/* Stat cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             {stats.map((s) => (
               <div key={s.label} className="bg-white border rounded p-3 md:p-4">
@@ -112,7 +147,6 @@ export default function Dashboard() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-4 md:gap-6">
-            {/* Recent leads table — scrolls horizontally instead of squeezing columns */}
             <div className="md:col-span-2 bg-white border rounded overflow-hidden">
               <div className="px-4 py-3 border-b font-semibold text-sm">
                 Recent Leads
@@ -130,8 +164,12 @@ export default function Dashboard() {
                   <tbody>
                     {recentLeads.map((lead) => (
                       <tr key={lead.name} className="border-b last:border-0">
-                        <td className="px-4 py-3 whitespace-nowrap">{lead.name}</td>
-                        <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{lead.form}</td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          {lead.name}
+                        </td>
+                        <td className="px-4 py-3 text-gray-500 whitespace-nowrap">
+                          {lead.form}
+                        </td>
                         <td className="px-4 py-3">
                           <span
                             className={`text-xs px-2 py-1 rounded-full whitespace-nowrap ${statusColor[lead.status]}`}
@@ -139,7 +177,9 @@ export default function Dashboard() {
                             {lead.status}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{lead.date}</td>
+                        <td className="px-4 py-3 text-gray-500 whitespace-nowrap">
+                          {lead.date}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -147,7 +187,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Activity feed */}
             <div className="bg-white border rounded">
               <div className="px-4 py-3 border-b font-semibold text-sm">
                 Activity
